@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Collect Hearts Game + Reward</title>
+<style>
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Helvetica', sans-serif;
+    background: url('https://i.imgur.com/YP9U0zT.jpg') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    touch-action: manipulation;
+    transition: background 0.8s ease;
+}
+
+canvas {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#scoreboard, #instructions {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 10;
+    color: white;
+    text-shadow: 0 0 5px black;
+}
+
+#scoreboard { top: 5%; font-size: 6vw; font-weight: bold; }
+#instructions { top: 12%; font-size: 4vw; font-weight: bold; color: #ffccd5; }
+
+#reward {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+}
+
+#reward .heart {
+    font-size: 18vw;
+    color: #ff4d6d;
+    text-shadow: 0 0 20px #ff6e8c, 0 0 40px #ff4d6d;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#reward .message {
+    position: absolute;
+    width: 100%;
+    top: 65%;
+    text-align: center;
+    font-size: 5vw;
+    color: white;
+    font-family: 'Cursive', sans-serif;
+    text-shadow: 0 0 10px black;
+}
+
+.easterEggMessage {
+    position: absolute;
+    top: 40%;
+    width: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    background: rgba(255,255,255,0.9);
+    color: black;
+    padding: 15px;
+    font-size: 4vw;
+    border-radius: 10px;
+    z-index: 30;
+}
+</style>
+</head>
+<body>
+
+<div id="scoreboard">Hearts: 0 / 30</div>
+<div id="instructions">Tap the hearts to collect</div>
+
+<div id="reward">
+    <div class="heart">❤️</div>
+    <div class="message">HAPPY MONTHSARY<br>
+                        ILYSM GENEROSE BENITEZ<br>
+                        -ray</div>
+</div>
+
+<canvas id="gameCanvas"></canvas>
+
+<script>
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+
+let width = canvas.width = window.innerWidth;
+let height = canvas.height = window.innerHeight;
+
+window.addEventListener("resize", () => {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+});
+
+let hearts = [];
+let score = 0;
+const totalHearts = 30;
+
+function random(min,max){return Math.random()*(max-min)+min}
+
+
+class Heart {
+    constructor() {
+        this.size = random(40,60);
+        this.x = random(this.size, width - this.size);
+        this.y = -this.size;
+        this.speed = random(1.5, 3);
+    }
+
+    draw() {
+        ctx.font = this.size + "px Arial";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("❤️", this.x, this.y);
+    }
+
+    update() {
+        this.y += this.speed;
+        if(this.y > height + this.size) {
+            this.y = -this.size;
+            this.x = random(this.size, width - this.size);
+        }
+        this.draw();
+    }
+
+    isClicked(mx,my){
+        const dx = mx - this.x;
+        const dy = my - this.y;
+        const distance = Math.sqrt(dx*dx + dy*dy);
+        return distance < this.size/1.5;
+    }
+}
+
+//spawn hearts
+for(let i=0;i<5;i++) hearts.push(new Heart());
+
+//tap handler
+function handleClick(e){
+    e.preventDefault();
+    let mx = e.clientX;
+    let my = e.clientY;
+    if(e.touches){ 
+        mx = e.touches[0].clientX;
+        my = e.touches[0].clientY;
+    }
+
+    for(let i=hearts.length-1;i>=0;i--){
+        if(hearts[i].isClicked(mx,my)){
+            score++;
+            document.getElementById("scoreboard").innerText = `Hearts: ${score} / ${totalHearts}`;
+            hearts.splice(i,1);
+            hearts.push(new Heart());
+            if(score >= totalHearts) showReward();
+            break;
+        }
+    }
+}
+
+canvas.addEventListener("click", handleClick);
+canvas.addEventListener("touchstart", handleClick);
+
+function showReward(){
+    
+    document.getElementById("scoreboard").style.display = "none";
+    document.getElementById("instructions").style.display = "none";
+
+    document.body.style.background = "url('bg.jpg') no-repeat center center/cover";
+
+    document.getElementById("reward").style.display = "block";
+    cancelAnimationFrame(animationId);
+    startMovingImages();
+}
+
+let animationId;
+function gameLoop(){
+    ctx.clearRect(0,0,width,height);
+    hearts.forEach(h => h.update());
+    animationId = requestAnimationFrame(gameLoop);
+}
+
+gameLoop();
+
+
+let images = [];
+let easterEggIndex;
+
+function startMovingImages(){
+    canvas.style.display = "none";
+
+    const imgUrls = [
+        "cat1.png",
+        "cat2.png",
+        "cat3.png",
+        "cat4.png",
+        "cat5.png",
+        "cat6.png"
+    ];
+
+    easterEggIndex = Math.floor(Math.random()*imgUrls.length);
+
+    imgUrls.forEach((url,i)=>{
+        const img = new Image();
+        img.src = url;
+        img.style.position = "absolute";
+        img.style.width = "35vw";
+        img.style.height = "35vw";
+        img.style.left = random(0,width-100)+"px";
+        img.style.top = random(0,height-100)+"px";
+        img.vx = random(-2,2);
+        img.vy = random(-2,2);
+        img.dataset.index = i;
+        document.body.appendChild(img);
+        images.push(img);
+    });
+
+    document.addEventListener("click", checkEasterEgg);
+    document.addEventListener("touchstart", checkEasterEgg);
+
+    moveImages();
+}
+
+function moveImages(){
+    images.forEach(img=>{
+        let left = parseFloat(img.style.left);
+        let top = parseFloat(img.style.top);
+        left += img.vx;
+        top += img.vy;
+        if(left < 0 || left > width-parseFloat(img.style.width)) img.vx *= -1;
+        if(top < 0 || top > height-parseFloat(img.style.height)) img.vy *= -1;
+        img.style.left = left + "px";
+        img.style.top = top + "px";
+    });
+    requestAnimationFrame(moveImages);
+}
+
+function checkEasterEgg(e){
+    let mx = e.clientX;
+    let my = e.clientY;
+    if(e.touches){ 
+        mx = e.touches[0].clientX;
+        my = e.touches[0].clientY;
+    }
+
+    images.forEach(img=>{
+        const rect = img.getBoundingClientRect();
+        if(mx >= rect.left && mx <= rect.right && my >= rect.top && my <= rect.bottom){
+            if(parseInt(img.dataset.index) === easterEggIndex){
+                showEasterEggMessage();
+            }
+        }
+    });
+}
+
+function showEasterEggMessage(){
+    const msg = document.createElement("div");
+    msg.classList.add("easterEggMessage");
+    msg.innerText = "🎁 You won a plushie! Please send a screenshot to me to claim the reward :3 meowk :3";
+    document.body.appendChild(msg);
+    document.removeEventListener("click", checkEasterEgg);
+    document.removeEventListener("touchstart", checkEasterEgg);
+}
+</script>
+</body>
+</html>

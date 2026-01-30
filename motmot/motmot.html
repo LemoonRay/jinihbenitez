@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy First Monthsary</title>
+<style>
+    body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent 20%, transparent 80%, rgba(0,0,0,0.7));
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: black;
+        overflow: hidden;
+        font-family: 'Helvetica', sans-serif;
+        color: white;
+        display: flex;
+        justify-content: center; 
+        align-items: center;  
+        height: 100vh;           
+        text-align: justify;
+    }
+
+    #typewriter-container {
+        max-width: 600px;
+        width: 80%;
+        font-size: 22px;
+        line-height: 1.5;
+        text-align: justify;       
+        text-align-last: center;   
+        position: relative;
+        min-height: 100px;         
+    }
+
+    @media (max-width: 600px) {
+        #typewriter-container {
+            width: 90%;
+            font-size: 18px;
+            text-align: justify;
+            text-align-last: center;
+        }
+    }
+
+    .line {
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        white-space: pre-wrap;
+        text-align: justify;
+        text-align-last: center;
+    }
+
+
+
+    /* stars */
+    .star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle 2s infinite alternate;
+    }
+
+    @keyframes twinkle {
+        from { opacity: 0.2; transform: scale(1); }
+        to { opacity: 1; transform: scale(1.5); }
+    }
+</style>
+</head>
+<body>
+<video id="mygirl" playsinline  width="100%" height="100%" style="display:none;">
+<source src="mygirl.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+
+
+<div id="typewriter-container">
+    <p class="line">Hey love, happy monthsary! 💛</p>
+    <p class="line">I’ve been thinking about us a lot lately.</p>
+    <p class="line">I know things have been a little tiring</p>
+    <p class="line">and sometimes I catch myself overthinking</p>
+    <p class="line">oh god... I'm so dramatic</p>
+    <p class="line">but I just want you to know…</p>
+    <p class="line">it comes from how much I care about you.</p>
+    <p class="line">I love you so much</p>
+    <p class="line">I really appreciate your energy</p>
+    <p class="line">on days when it’s low</p>
+    <p class="line">and how you somehow still manage to make time for me</p>
+    <p class="line">Even the little things you do</p>
+    <p class="line">though sometimes I get a bit hurt</p>
+    <p class="line">they don’t go unnoticed.</p>
+    <p class="line">I see the effort you put in on your low days</p>
+    <p class="line">it really means a lot to me.</p>
+    <p class="line">You make me want to be patient</p>
+    <p class="line">to understand</p>
+    <p class="line">and to cherish every single moment we share</p>
+    <p class="line">I’m so grateful for you</p>
+    <p class="line">for your laughter</p>
+    <p class="line">your warmth</p>
+    <p class="line">even the little chaos you cause that brings life</p>
+    <p class="line">and make my heart feel at home.</p>
+    <p class="line">Right now, I’m outside</p>
+    <p class="line">feeling the quiet night around me</p>
+    <p class="line">There are so many stars rn</p>
+    <p class="line">and it makes me think about you</p>
+    <p class="line">about how bright you make my life</p>
+    <p class="line">even from afar</p>
+    <p class="line">hays I find myself smiling like a fool</p>
+    <p class="line">just imagining you</p>
+    <p class="line">remembering the little things that make you, you</p>
+    <p class="line">Like when you send me a tiktok of yourself</p>
+    <p class="line">it could be silly</p>
+    <p class="line">funny</p>
+    <p class="line">or just a random clip</p>
+    <p class="line">it instantly brightens my day</p>
+    <p class="line">because it’s you sharing a part of yourself with me</p>
+    <p class="line">or like when you send an absolutely cute selfie</p>
+    <p class="line">the little spark it brings to my heart</p>
+    <p class="line">gahd how I wish every photo you take gets sent directly to me</p>
+    <p class="line">I love your little teasing</p>
+    <p class="line">it’s the way you show closeness and comfort with me</p>
+    <p class="line">I notice and treasure the way you randomly say things that pop into your mind</p>
+    <p class="line">it’s a glimpse into your thoughts</p>
+    <p class="line">your humor</p>
+    <p class="line">and your personality</p>
+    <p class="line">I love how you include me in your days</p>
+    <p class="line">even in the smallest ways</p>
+    <p class="line">sharing what you’re doing</p>
+    <p class="line">what you’re thinking</p>
+    <p class="line">what you’re excited about</p>
+    <p class="line">because it makes me feel like I’m part of your world</p>
+    <p class="line">All these small everyday things add up</p>
+    <p class="line">they’re uniquely you</p>
+    <p class="line">hays remembering them</p>
+    <p class="line">noticing them</p>
+    <p class="line">and appreciating them</p>
+    <p class="line">Makes everything feels calmer and lighter somehow</p>
+    <p class="line">just knowing you exist</p>
+    <p class="line">and you’re a part of my life</p>
+    <p class="line">And here I am...</p>
+</div>
+
+<script>
+
+function showTapToPlay(video) {
+    const msg = document.createElement("div");
+    msg.innerText = "tap anywhere 🤍";
+
+    // style it bigger and mobile-friendly
+    msg.style.position = "fixed";
+    msg.style.bottom = "50px";
+    msg.style.left = "0";
+    msg.style.width = "100%";
+    msg.style.textAlign = "center";
+    msg.style.fontSize = "22px";      
+    msg.style.fontWeight = "bold";   
+    msg.style.color = "white";
+    msg.style.zIndex = "9999";         
+    msg.style.textShadow = "0 0 5px black"; 
+    msg.style.cursor = "pointer";
+
+    document.body.appendChild(msg);
+
+    function startVideo() {
+        video.play();   
+        msg.remove();   
+        document.removeEventListener("click", startVideo);
+        document.removeEventListener("touchstart", startVideo);
+    }
+
+    document.addEventListener("click", startVideo);
+    document.addEventListener("touchstart", startVideo);
+
+    video.addEventListener("ended", () => {
+        window.location.href = "reward.html"; 
+    });
+}
+
+
+//stars
+const starCount = 100;
+for(let i=0; i<starCount; i++){
+    const star = document.createElement("div");
+    star.classList.add("star");
+    star.style.top = Math.random() * window.innerHeight + "px";
+    star.style.left = Math.random() * window.innerWidth + "px";
+    star.style.width = star.style.height = Math.random() * 3 + 1 + "px";
+    star.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    document.body.appendChild(star);
+}
+
+//Typewriter
+const lines = document.querySelectorAll(".line");
+let currentLine = 0;
+
+function typeLine(line) {
+    let text = line.innerText;
+    line.innerText = "";
+    line.style.opacity = 1;
+    let i = 0;
+
+    function typeChar(){
+        if(i < text.length){
+            line.innerText += text.charAt(i);
+            i++;
+            setTimeout(typeChar, 70); // typing speed
+        } else {
+            // after line finishes, wait then fade out
+            let pauseTime = 1500;
+            if(currentLine === lines.length -1){
+                pauseTime = 5000; // linger 5s for edit
+            }
+            setTimeout(() => {
+                line.style.transition = "opacity 0.5s";
+                line.style.opacity = 0;
+                currentLine++;
+                if(currentLine < lines.length){
+                    typeLine(lines[currentLine]);
+                } else{
+                    const video = document.getElementById("mygirl");
+                    if(video){
+                        video.style.display = "block";
+                        video.style.opacity = 0;
+                        video.style.transition = "opacity 1s";
+                        
+                        setTimeout(() => { video.style.opacity = 1; }, 100);
+
+                        const container = document.getElementById("typewriter-container");
+                        container.style.transition = "opacity 1s";
+                        container.style.opacity = 0;
+                        showTapToPlay(video);
+                    }
+                }
+            }, 2000); 
+        }
+    }
+    setTimeout(typeChar, 70); 
+}
+
+
+typeLine(lines[0]);
+
+function createFallingStar() {
+    const container = document.getElementById("typewriter-container");
+    const containerRect = container.getBoundingClientRect();
+
+    const star = document.createElement("div");
+    star.classList.add("star");
+
+    let spawnArea = Math.random() < 0.5 ? 'top' : 'bottom';
+    if (spawnArea === 'top') {
+        star.style.top = Math.random() * containerRect.top + "px";
+    } else {
+        star.style.top = (containerRect.bottom + Math.random() * (window.innerHeight - containerRect.bottom)) + "px";
+    }
+
+    star.style.left = Math.random() * window.innerWidth + "px";
+    star.style.width = star.style.height = (Math.random() * 2 + 1) + "px";
+    document.body.appendChild(star);
+
+    let speed = Math.random() * 1 + 0.5; 
+    function fall() {
+        let top = parseFloat(star.style.top);
+        if (top < window.innerHeight + 5) {
+            star.style.top = top + speed + "px";
+            requestAnimationFrame(fall);
+        } else {
+            star.remove();
+        }
+    }
+    fall();
+}
+//spawn shooting stars
+setInterval(() => {
+    const starsOnScreen = document.querySelectorAll(".falling-star").length;
+    const starsToCreate = Math.min(3 - starsOnScreen, 3); 
+    for (let i = 0; i < starsToCreate; i++) {
+        const star = document.createElement("div");
+        star.classList.add("star", "falling-star");
+
+        const container = document.getElementById("typewriter-container");
+        const rect = container.getBoundingClientRect();
+        let spawnArea = Math.random() < 0.5 ? 'top' : 'bottom';
+        if (spawnArea === 'top') {
+            star.style.top = Math.random() * rect.top + "px";
+        } else {
+            star.style.top = (rect.bottom + Math.random() * (window.innerHeight - rect.bottom)) + "px";
+        }
+
+        star.style.left = Math.random() * window.innerWidth + "px";
+        star.style.width = star.style.height = (Math.random() * 2 + 1) + "px";
+        document.body.appendChild(star);
+
+        let speed = Math.random() * 1 + 0.5;
+        function fall() {
+            let top = parseFloat(star.style.top);
+            if (top < window.innerHeight + 5) {
+                star.style.top = top + speed + "px";
+                requestAnimationFrame(fall);
+            } else {
+                star.remove();
+            }
+        }
+        fall();
+    }
+}, Math.random() * 2000 + 3000);
+
+
+</script>
+
+</body>
+</html>
