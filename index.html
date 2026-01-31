@@ -191,6 +191,10 @@ function showTapToPlay(video) {
     }
     document.addEventListener("click", startVideo);
     document.addEventListener("touchstart", startVideo);
+
+    video.addEventListener("ended", () => { 
+        window.location.href = "reward.html"; 
+    });
 }
 
 
@@ -328,3 +332,4 @@ setInterval(() => {
 
 </body>
 </html>
+
