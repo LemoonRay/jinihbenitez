@@ -65,6 +65,7 @@
 
     /* stars */
     .star {
+        pointer-events: none;
         position: absolute;
         width: 2px;
         height: 2px;
@@ -80,14 +81,14 @@
 </style>
 </head>
 <body>
-<video id="mygirl" playsinline  width="100%" height="100%" style="display:none;">
+<video id="mygirl" playsinline muted preload="auto" width="100%" height="100%" style="display:none;">
 <source src="mygirl.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
 
 
-<div id="typewriter-container">
-    <p class="line">Hey love, happy monthsary! ❤️</p>
+<div< id="typewriter-container">
+    <!--<p class="line">Hey love, happy monthsary! 💛</p>
     <p class="line">I’ve been thinking about us a lot lately.</p>
     <p class="line">I know things have been a little tiring</p>
     <p class="line">and sometimes I catch myself overthinking</p>
@@ -147,7 +148,7 @@ Your browser does not support the video tag.
     <p class="line">noticing them</p>
     <p class="line">and appreciating them</p>
     <p class="line">Makes everything feels calmer and lighter somehow</p>
-    <p class="line">just knowing you exist</p>
+    --><p class="line">just knowing you exist</p>
     <p class="line">and you’re a part of my life</p>
     <p class="line">And here I am...</p>
 </div>
@@ -158,7 +159,6 @@ function showTapToPlay(video) {
     const msg = document.createElement("div");
     msg.innerText = "tap anywhere 🤍";
 
-    // style it bigger and mobile-friendly
     msg.style.position = "fixed";
     msg.style.bottom = "50px";
     msg.style.left = "0";
@@ -174,19 +174,22 @@ function showTapToPlay(video) {
     document.body.appendChild(msg);
 
     function startVideo() {
-        video.play();   
-        msg.remove();   
-        document.removeEventListener("click", startVideo);
-        document.removeEventListener("touchstart", startVideo);
+    video.muted = false; // unmute when user interacts (optional)
+
+    const playPromise = video.play();
+
+    if (playPromise !== undefined) {
+        playPromise.then(() => {
+            msg.remove();
+        }).catch(err => {
+            console.log("Playback prevented:", err);
+        });
     }
 
-    document.addEventListener("click", startVideo);
-    document.addEventListener("touchstart", startVideo);
+    document.removeEventListener("click", startVideo);
+    document.removeEventListener("touchstart", startVideo);
+    }
 
-    video.addEventListener("ended", () => {
-        window.location.href = "reward.html"; 
-    });
-}
 
 
 //stars
@@ -322,4 +325,3 @@ setInterval(() => {
 
 </body>
 </html>
-
