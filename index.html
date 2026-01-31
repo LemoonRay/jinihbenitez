@@ -73,6 +73,20 @@
         border-radius: 50%;
         animation: twinkle 2s infinite alternate;
     }
+    #tapOverlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 0 10px black;
+    background: rgba(0,0,0,0.25);
+    z-index: 2;
+    cursor: pointer;
+    }
 
     @keyframes twinkle {
         from { opacity: 0.2; transform: scale(1); }
@@ -81,11 +95,12 @@
 </style>
 </head>
 <body>
-<video id="mygirl" playsinline webkit-playsinline preload="auto" width="100%" height="100%" style="display:none;">
+<video id="mygirl" playsinline webkit-playsinline preload="auto" width="100%" height="100%" style="display:none; z-index: 1;">
 <source src="mygirl.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
 
+<div id="tapOverlay">Tap to play 🤍</div>
 
 <div id="typewriter-container">
     <!--<p class="line">Hey love, happy monthsary! 💛</p>
@@ -156,32 +171,21 @@ Your browser does not support the video tag.
 <script>
 
 function showTapToPlay(video) {
-    const msg = document.createElement("div");
-    msg.innerText = "tap anywhere 🤍";
-
-    msg.style.position = "fixed";
-    msg.style.bottom = "50px";
-    msg.style.left = "0";
-    msg.style.width = "100%";
-    msg.style.textAlign = "center";
-    msg.style.fontSize = "22px";      
-    msg.style.fontWeight = "bold";   
-    msg.style.color = "white";
-    msg.style.zIndex = "9999";         
-    msg.style.textShadow = "0 0 5px black"; 
-    msg.style.cursor = "pointer";
+    const overlay = document.getElementById("tapOverlay");
+    overlay.style.display = "flex";
 
     document.body.appendChild(msg);
 
     function startVideo() {
+    overlay.style.display = "none";
     video.currentTime = 0;     
     video.muted = false;       
-    video.play()
+    video.pause()
     const playPromise = video.play();
 
     if (playPromise !== undefined) {
         playPromise.then(() => {
-            msg.remove();
+           
         }).catch(err => {
             console.log("Playback prevented:", err);
         });
@@ -332,6 +336,7 @@ setInterval(() => {
 
 </body>
 </html>
+
 
 
 
