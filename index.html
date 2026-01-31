@@ -174,7 +174,8 @@ function showTapToPlay(video) {
     document.body.appendChild(msg);
 
     function startVideo() {
-    video.muted = false; 
+    video.pause();
+    video.muted = false;
     const playPromise = video.play();
 
     if (playPromise !== undefined) {
@@ -223,12 +224,12 @@ function typeLine(line) {
         if(i < text.length){
             line.innerText += text.charAt(i);
             i++;
-            setTimeout(typeChar, 70); // typing speed
+            setTimeout(typeChar, 70);
         } else {
-            // after line finishes, wait then fade out
+           
             let pauseTime = 1500;
             if(currentLine === lines.length -1){
-                pauseTime = 5000; // linger 5s for edit
+                pauseTime = 5000; 
             }
             setTimeout(() => {
                 line.style.transition = "opacity 0.5s";
@@ -330,6 +331,7 @@ setInterval(() => {
 
 </body>
 </html>
+
 
 
 
