@@ -62,8 +62,6 @@
     }
 
 
-
-    /* stars */
     .star {
         pointer-events: none;
         position: absolute;
@@ -175,7 +173,8 @@ function showTapToPlay(video) {
     document.body.appendChild(msg);
 
     function startVideo() {
-    video.muted = false; // unmute when user interacts (optional)
+    video.muted = false;
+    video.currentTime = 0;
 
     const playPromise = video.play();
 
@@ -333,5 +332,6 @@ setInterval(() => {
 
 </body>
 </html>
+
 
 
