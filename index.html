@@ -76,7 +76,7 @@
     #tapOverlay {
     position: fixed;
     inset: 0;
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     font-size: 22px;
@@ -174,21 +174,15 @@ function showTapToPlay(video) {
     const overlay = document.getElementById("tapOverlay");
     overlay.style.display = "flex";
 
-    document.body.appendChild(msg);
-
     function startVideo() {
-    overlay.style.display = "none";
-    video.currentTime = 0;     
-    video.muted = false;       
-    video.pause()
-    const playPromise = video.play();
-
-    if (playPromise !== undefined) {
-        playPromise.then(() => {
-           
-        }).catch(err => {
-            console.log("Playback prevented:", err);
-        });
+        overlay.style.display = "none";
+        video.currentTime = 0;
+        video.muted = false;
+    
+        video.play().catch(err => console.log("Playback prevented:", err));
+    
+        overlay.removeEventListener("click", startVideo);
+        overlay.removeEventListener("touchstart", startVideo);
     }
 
     overlay.removeEventListener("click", startVideo);
@@ -336,6 +330,7 @@ setInterval(() => {
 
 </body>
 </html>
+
 
 
 
