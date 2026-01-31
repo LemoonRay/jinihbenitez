@@ -174,8 +174,7 @@ function showTapToPlay(video) {
     document.body.appendChild(msg);
 
     function startVideo() {
-    video.muted = false; // unmute when user interacts (optional)
-
+    video.muted = false; 
     const playPromise = video.play();
 
     if (playPromise !== undefined) {
@@ -189,6 +188,12 @@ function showTapToPlay(video) {
     document.removeEventListener("click", startVideo);
     document.removeEventListener("touchstart", startVideo);
     }
+    document.addEventListener("click", startVideo);
+    document.addEventListener("touchstart", startVideo);
+
+    video.addEventListener("ended", () => {
+        window.location.href = "reward.html";
+    });
 }
 
 
@@ -325,6 +330,7 @@ setInterval(() => {
 
 </body>
 </html>
+
 
 
 
