@@ -175,7 +175,8 @@ function showTapToPlay(video) {
     function startVideo() {
     video.muted = false;
     video.currentTime = 0;
-
+    video.play();
+        
     const playPromise = video.play();
 
     if (playPromise !== undefined) {
@@ -332,6 +333,7 @@ setInterval(() => {
 
 </body>
 </html>
+
 
 
 
